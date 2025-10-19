@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Yaren'in Doğum Günü</title>
+  <style>
+    body {
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      text-align: center;
+      background: linear-gradient(135deg, #ffb6c1, #ff69b4);
+      color: white;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+    button {
+      background: white;
+      color: #ff1493;
+      border: none;
+      padding: 10px 20px;
+      margin: 10px;
+      border-radius: 10px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    button:hover {
+      transform: scale(1.1);
+    }
+    #message {
+      margin-top: 20px;
+      max-width: 600px;
+      font-size: 1.2rem;
+      white-space: pre-line;
+    }
+    footer {
+      margin-top: 50px;
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+    .confetti {
+      position: fixed;
+      width: 10px;
+      height: 10px;
+      background-color: white;
+      top: 0;
+      animation: fall 3s linear infinite;
+    }
+    @keyframes fall {
+      to {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>🎉 Doğum Günün Kutlu Olsun Yaren 🎉</h1>
+  <button onclick="playMusic()">Müziği Aç 🎶</button>
+  <button onclick="pauseMusic()">Müziği Kapat ⏸</button>
+  <button onclick="showMessage()">Kutlama Yap 🎂</button>
+  <div id="message"></div>
+
+  <footer>Made by Latzy ❤</footer>
+
+  <audio id="birthdaySong" loop preload="auto">
+    <source src="assets/İyi ki doğdun YAREN - İsme Özel Doğum Günü Şarkısı [j5r8T2ou0MA].mp3" type="audio/mpeg">
+    Tarayıcınız ses etiketini desteklemiyor.
+  </audio>
+
+  <script>
+    function playMusic() {
+      const audio = document.getElementById('birthdaySong');
+      audio.currentTime = 0; // en baştan başlat
+      audio.play().catch(err => {
+        console.log("Müzik başlatılamadı:", err);
+      });
+    }
+
+    function pauseMusic() {
+      const audio = document.getElementById('birthdaySong');
+      audio.pause();
+      audio.currentTime = 0; // durunca en başa al
+    }
+
+    function showMessage() {
+      const text = "Sevgili Yaren'im doğum günün kutlu olsun nice mutlu senelere iyki dogdun iyki benim kardeşimsin iyki varsın seni çok seviyorum biliyorum bugün dogum günün merak etme abicim unutmadım oyuzden sana bu güzel hediyeyi hazırladım umarım beğenirsin he birde sakın kimse için üzülme unutma sen herkesden değerlisin canım abim birde sakın şunu unutma seni çok seviyorum iyki varsın iyki hayatımdasın birtanem";
+      let i = 0;
+      const messageDiv = document.getElementById('message');
+      messageDiv.innerHTML = "";
+      const interval = setInterval(() => {
+        messageDiv.innerHTML += text.charAt(i);
+        i++;
+        if (i >= text.length) clearInterval(interval);
+      }, 50);
+
+      for (let j = 0; j < 100; j++) {
+        createConfetti();
+      }
+    }
+
+    function createConfetti() {
+      const confetti = document.createElement('div');
+      confetti.className = 'confetti';
+      confetti.style.left = Math.random() * window.innerWidth + 'px';
+      confetti.style.backgroundColor = 'hsl(' + Math.random() * 360 + ', 100%, 50%)';
+      confetti.style.animationDuration = 2 + Math.random() * 3 + 's';
+      document.body.appendChild(confetti);
+      setTimeout(() => confetti.remove(), 5000);
+    }
+  </script>
+</body>
+</html>
